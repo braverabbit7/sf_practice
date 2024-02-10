@@ -1,0 +1,11 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get -y update && sudo apt-get -y upgrade
+    sudo apt-get -y install python3 python3-pip python3-dev libpq-dev
+    sudo pip3 install psycopg2 django
+  SHELL
+  
+  config.vm.provision "file", source: "../123.txt", destination: "$HOME/appdata/123.txt"
+end
